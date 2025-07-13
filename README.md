@@ -6,8 +6,7 @@ This repository contains a Tampermonkey userscript that **forces dark mode on [E
 
 - Forces Exercism into dark mode regardless of account status
 - Sets the appropriate `theme-dark` class on `<body>`
-- Persists user preference in `localStorage`
-- Automatically applies on every visit
+- Automatically applies on every visit `theme-dark`, using `MutationObserver` to ensure dark mode is always enabled
 
 ## Installation
 
