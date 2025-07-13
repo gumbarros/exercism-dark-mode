@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Exercism Dark Mode
 // @namespace    https://exercism.org/
-// @version      1.0.1
+// @version      1.0.2
 // @description  Force dark mode on Exercism, bypassing Insiders requirement, aggressively applied with MutationObserver
 // @match        https://exercism.org/*
 // @grant        none
@@ -12,17 +12,7 @@
 (function () {
   'use strict';
 
-  const settingsKey = 'editor-settings';
-
   const forceDarkMode = () => {
-    try {
-      const existingSettings = JSON.parse(localStorage.getItem(settingsKey) || '{}');
-      existingSettings.theme = 'theme-dark';
-      localStorage.setItem(settingsKey, JSON.stringify(existingSettings));
-    } catch (e) {
-      localStorage.setItem(settingsKey, JSON.stringify({ theme: 'theme-dark' }));
-    }
-
     document.body.classList.remove('theme-light', 'theme-system');
     if (!document.body.classList.contains('theme-dark')) {
       document.body.classList.add('theme-dark');
