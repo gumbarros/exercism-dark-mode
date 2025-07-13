@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Exercism Dark Mode
 // @namespace    https://exercism.org/
-// @version      1.0
-// @description  Force dark mode on Exercism, bypassing Insiders requirement
+// @version      1.0.1
+// @description  Force dark mode on Exercism, bypassing Insiders requirement, aggressively applied with MutationObserver
 // @match        https://exercism.org/*
 // @grant        none
 // @run-at       document-idle
@@ -12,25 +12,40 @@
 (function () {
   'use strict';
 
-  const setDarkMode = () => {
-    const settingsKey = 'editor-settings';
+  const settingsKey = 'editor-settings';
 
+  const forceDarkMode = () => {
     try {
       const existingSettings = JSON.parse(localStorage.getItem(settingsKey) || '{}');
       existingSettings.theme = 'theme-dark';
       localStorage.setItem(settingsKey, JSON.stringify(existingSettings));
     } catch (e) {
-      // fallback: force set
       localStorage.setItem(settingsKey, JSON.stringify({ theme: 'theme-dark' }));
     }
 
     document.body.classList.remove('theme-light', 'theme-system');
-    document.body.classList.add('theme-dark');
+    if (!document.body.classList.contains('theme-dark')) {
+      document.body.classList.add('theme-dark');
+    }
+  };
+
+  const observer = new MutationObserver(() => {
+    if (!document.body.classList.contains('theme-dark')) {
+      forceDarkMode();
+    }
+  });
+
+  const startObserver = () => {
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
   };
 
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    setDarkMode();
+    forceDarkMode();
+    startObserver();
   } else {
-    document.addEventListener('DOMContentLoaded', setDarkMode);
+    document.addEventListener('DOMContentLoaded', () => {
+      forceDarkMode();
+      startObserver();
+    });
   }
 })();
