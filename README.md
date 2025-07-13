@@ -9,14 +9,10 @@ This repository contains a Tampermonkey userscript that **forces dark mode on [E
 - Persists user preference in `localStorage`
 - Automatically applies on every visit
 
-## File
-
-- [`exercism-dark-mode.user.js`](./exercism-dark-mode.user.js)
-
 ## Installation
 
 1. Install [Tampermonkey](https://www.tampermonkey.net/) in your browser.
-2. Click [here to view raw script](./exercism-dark-mode.user.js), then hit “Install” in Tampermonkey.
+2. Click [here to view raw script](https://github.com/gumbarros/exercism-dark-mode/raw/refs/heads/main/exercism-dark-mode.user.js), then hit “Install” in Tampermonkey.
 3. Reload any Exercism page. Dark mode will be applied automatically.
 
 ---
